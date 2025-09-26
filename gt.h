@@ -6,9 +6,12 @@
 // --------------------------------------------------------------------------------------
 
 #define GT_PLATFORM_LINUX_x86_64    1
+#define GT_PLATFORM_LINUX_ARM       2
 
 #if defined(__linux__) && defined(__x86_64__)
 #   define GT_PLATFORM GT_PLATFORM_LINUX_x86_64
+#elif defined(__linux__) && defined(__arm__)
+#   define GT_PLATFORM GT_PLATFORM_LINUX_ARM
 #else
 #   error "Unknown platform!"
 #endif
@@ -28,7 +31,7 @@
 #if GT_PLATFORM == GT_PLATFORM_LINUX_x86_64
 #   define GT_REG_R8		(0)
 #   define GT_REG_R9 		(1)
-#   define GT_REG_R10 	    (2)
+#   define GT_REG_R10 	        (2)
 #   define GT_REG_R11		(3)
 #   define GT_REG_R12		(4)
 #   define GT_REG_R13		(5)
@@ -50,8 +53,24 @@
 #   define GT_REG_OLDMASK	(21)
 #   define GT_REG_CR2		(22)
 
-#   define GT_MCONTEXT_GREGS   (40)
-#   define GT_REG_SZ           (8)
+#   define GT_MCONTEXT_GREGS    (40)
+#   define GT_REG_SZ            (8)
+
+#   define GT_REG_OFFSET(__reg) (GT_MCONTEXT_GREGS + ((__reg) * GT_REG_SZ))
+#elif GT_PLATFORM == GT_PLATFORM_LINUX_ARM
+#   define GT_REG_R4		(0)
+#   define GT_REG_R5		(1)
+#   define GT_REG_R6		(2)
+#   define GT_REG_R7		(3)
+#   define GT_REG_R8		(4)
+#   define GT_REG_R9		(5)
+#   define GT_REG_R10		(6)
+#   define GT_REG_R11		(7)
+#   define GT_REG_SP		(8)
+#   define GT_REG_LR		(9)
+
+#   define GT_MCONTEXT_GREGS    (0)
+#   define GT_REG_SZ            (4)
 
 #   define GT_REG_OFFSET(__reg) (GT_MCONTEXT_GREGS + ((__reg) * GT_REG_SZ))
 #endif // GT_PLATFORM == GT_PLATFORM_LINUX_x86_64
@@ -91,6 +110,12 @@
         gt_GenRegSet gen_regs;
         gt_FPURegSet fpu_regs;
         unsigned long long reserved[8];
+    } gt_MachContext;
+#elif GT_PLATFORM == GT_PLATFORM_LINUX_ARM
+    typedef long gt_GenReg, gt_GenRegSet[10];
+
+    typedef struct {
+        gt_GenRegSet gen_regs;
     } gt_MachContext;
 #endif // GT_PLATFORM == GT_PLATFORM_LINUX_x86_64
 
