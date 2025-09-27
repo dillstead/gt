@@ -58,18 +58,22 @@
 
 #   define GT_REG_OFFSET(__reg) (GT_MCONTEXT_GREGS + ((__reg) * GT_REG_SZ))
 #elif GT_PLATFORM == GT_PLATFORM_LINUX_ARM
-#   define GT_REG_R4		(0)
-#   define GT_REG_R5		(1)
-#   define GT_REG_R6		(2)
-#   define GT_REG_R7		(3)
-#   define GT_REG_R8		(4)
-#   define GT_REG_R9		(5)
-#   define GT_REG_R10		(6)
-#   define GT_REG_R11		(7)
-#   define GT_REG_SP		(8)
-#   define GT_REG_LR		(9)
+#   define GT_REG_R0		(0)
+#   define GT_REG_R1		(1)
+#   define GT_REG_R2		(2)
+#   define GT_REG_R3		(3)
+#   define GT_REG_R4		(4)
+#   define GT_REG_R5		(5)
+#   define GT_REG_R6		(6)
+#   define GT_REG_R7		(7)
+#   define GT_REG_R8		(8)
+#   define GT_REG_R9		(9)
+#   define GT_REG_R10		(10)
+#   define GT_REG_R11		(11)
+#   define GT_REG_SP		(12)
+#   define GT_REG_LR		(13)
 
-#   define GT_MCONTEXT_GREGS    (0)
+#   define GT_MCONTEXT_GREGS    (20)
 #   define GT_REG_SZ            (4)
 
 #   define GT_REG_OFFSET(__reg) (GT_MCONTEXT_GREGS + ((__reg) * GT_REG_SZ))
@@ -112,7 +116,7 @@
         unsigned long long reserved[8];
     } gt_MachContext;
 #elif GT_PLATFORM == GT_PLATFORM_LINUX_ARM
-    typedef long gt_GenReg, gt_GenRegSet[10];
+    typedef long gt_GenReg, gt_GenRegSet[14];
 
     typedef struct {
         gt_GenRegSet gen_regs;

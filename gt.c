@@ -80,8 +80,8 @@
         int i;
 
         sp = (gt_GenReg *) ((uintptr_t) ucp->stack.stackptr + ucp->stack.size);
-        sp = (gt_GenReg *) (((uintptr_t) sp & -4L);
-        sp -= (argc > 4 ? argc - 4 : 0)
+        sp = (gt_GenReg *) ((uintptr_t) sp & -4L);
+        sp -= (argc > 4 ? argc - 4 : 0);
 
         ucp->mach_context.gen_regs[GT_REG_R4] = (uintptr_t) ucp->link;
         ucp->mach_context.gen_regs[GT_REG_R5] = (uintptr_t) func;
